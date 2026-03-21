@@ -1,0 +1,361 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  background: #f4f2ea;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  color: #2c2c2c;
+}
+
+/* Language toggle */
+.lang-toggle {
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lang-toggle button {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.2s;
+}
+
+.lang-toggle button.active {
+  color: #2c2c2c;
+  font-weight: 600;
+}
+
+.lang-separator {
+  color: #ccc;
+}
+
+/* Card */
+.card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  padding: 3rem 2.5rem;
+  max-width: 480px;
+  width: 100%;
+}
+
+.card h1 {
+  font-size: 2.5rem;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.1em;
+}
+
+.card .subtitle {
+  text-align: center;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+/* Name sections (Phase 1) */
+.name-section {
+  margin-bottom: 1.5rem;
+}
+
+.name-section h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.name-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: fadeIn 0.2s ease;
+}
+
+.name-row input[type="text"] {
+  flex: 1;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fafaf8;
+  transition: border-color 0.2s;
+}
+
+.name-row input[type="text"]:focus {
+  outline: none;
+  border-color: #2c2c2c;
+}
+
+.remove-name-btn {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.remove-name-btn:hover {
+  color: #c44;
+}
+
+/* Continue button */
+#continue-btn {
+  font-family: inherit;
+  font-size: 1.1rem;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 4px;
+  background: #2c2c2c;
+  color: #fff;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 0.5rem;
+  transition: background 0.2s;
+}
+
+#continue-btn:hover:not(:disabled) {
+  background: #444;
+}
+
+#continue-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Back link (Phase 2) */
+.back-link {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: #2c2c2c;
+}
+
+.phase2-intro {
+  font-size: 1rem;
+  color: #2c2c2c;
+  margin-bottom: 1.5rem;
+}
+
+/* Person detail sections (Phase 2) */
+.person-section {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.person-section:last-child {
+  border-bottom: none;
+}
+
+.person-section h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Section heading + description */
+.section-heading {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.section-desc {
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+}
+
+/* Radio group (bus) */
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: border-color 0.2s;
+}
+
+.radio-group.invalid {
+  border-color: #c44;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.radio-group label input[type="radio"] {
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+.radio-desc {
+  display: block;
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.4;
+  margin-top: 0.15rem;
+}
+
+.radio-group input[type="radio"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  cursor: pointer;
+}
+
+/* Checkbox labels */
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 0;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.checkbox-desc {
+  display: block;
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.4;
+  margin-top: 0.15rem;
+}
+
+/* Dietary text field (gated) */
+.dietary-text {
+  margin-top: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.dietary-text textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fafaf8;
+  transition: border-color 0.2s;
+  resize: none;
+  overflow: hidden;
+  line-height: 1.4;
+}
+
+.dietary-text textarea:focus {
+  outline: none;
+  border-color: #2c2c2c;
+}
+
+/* Form layout */
+#rsvp-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Submit button */
+#submit-btn {
+  font-family: inherit;
+  font-size: 1.1rem;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 4px;
+  background: #2c2c2c;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.2s;
+}
+
+#submit-btn:hover:not(:disabled) {
+  background: #444;
+}
+
+#submit-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Error & thank you */
+#error-message {
+  color: #c44;
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+#thank-you {
+  text-align: center;
+  font-size: 1.25rem;
+  padding: 2rem 0;
+}
+
+/* Phase transitions */
+#phase-1, #phase-2, #thank-you {
+  animation: fadeIn 0.3s ease;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 520px) {
+  .card {
+    padding: 2rem 1.5rem;
+  }
+
+  .card h1 {
+    font-size: 2rem;
+  }
+}

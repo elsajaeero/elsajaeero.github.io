@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSVP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="lang-toggle">
+    <button data-lang="fi" class="active">FI</button>
+    <span class="lang-separator">|</span>
+    <button data-lang="en">EN</button>
+  </div>
+
+  <main class="card">
+    <h1 data-i18n="title">RSVP</h1>
+    <p class="subtitle" data-i18n="subtitle">Elsa & Eero 24.7.2027</p>
+
+    <!-- Phase 1: Name Lists -->
+    <div id="phase-1">
+      <section class="name-section">
+        <h2 data-i18n="attending_heading">Osallistuvat</h2>
+        <div id="attending-list" class="name-list">
+          <div class="name-row">
+            <input type="text" data-i18n-placeholder="name_placeholder" placeholder="Nimi">
+          </div>
+        </div>
+      </section>
+
+      <section class="name-section">
+        <h2 data-i18n="not_attending_heading">Eivät osallistu</h2>
+        <div id="not-attending-list" class="name-list">
+          <div class="name-row">
+            <input type="text" data-i18n-placeholder="name_placeholder" placeholder="Nimi">
+            <button type="button" class="remove-name-btn" style="display: none;">✕</button>
+          </div>
+        </div>
+      </section>
+
+      <button type="button" id="continue-btn" data-i18n="continue" disabled>Jatka</button>
+    </div>
+
+    <!-- Phase 2: Details -->
+    <div id="phase-2" style="display: none;">
+      <button type="button" id="back-btn" class="back-link" data-i18n="back">← Takaisin</button>
+
+      <p class="phase2-intro" data-i18n="phase2_intro">Vastaa jokaisen vieraan kohdalla huolellisesti kysymyksiin.</p>
+
+      <form id="rsvp-form">
+        <div id="person-details"></div>
+
+        <p id="error-message" data-i18n="error" style="display: none;">Jokin meni pieleen. Yritä uudelleen.</p>
+
+        <button type="submit" id="submit-btn" data-i18n="submit">Lähetä</button>
+      </form>
+    </div>
+
+    <!-- Phase 3: Confirmation -->
+    <div id="thank-you" style="display: none;">
+      <p data-i18n="thank_you">Kiitos vastauksestasi!</p>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

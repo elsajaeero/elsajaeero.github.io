@@ -33,63 +33,35 @@ document.querySelectorAll('.lang-toggle button').forEach(btn => {
 
 // --- Phase 1: Name Lists ---
 
-function setupNameList(listId, firstRemovable) {
+function setupNameList(listId, addBtnId) {
   const list = document.getElementById(listId);
+
+  document.getElementById(addBtnId).addEventListener('click', () => {
+    const row = addNameRow(list);
+    row.querySelector('input[type="text"]').focus();
+  });
 
   list.addEventListener('input', (e) => {
     if (e.target.type !== 'text') return;
-    const rows = list.querySelectorAll('.name-row');
-    const lastRow = rows[rows.length - 1];
-    const lastInput = lastRow.querySelector('input[type="text"]');
-
-    // Auto-expand: if last input has text, add a new row
-    if (lastInput.value.trim() !== '' && e.target === lastInput) {
-      addNameRow(list, true);
-    }
-
-    updateRemoveButtons(list, firstRemovable);
     updateContinueButton();
   });
 
   list.addEventListener('click', (e) => {
     if (!e.target.classList.contains('remove-name-btn')) return;
-    const row = e.target.closest('.name-row');
-    row.remove();
-    updateRemoveButtons(list, firstRemovable);
+    e.target.closest('.name-row').remove();
     updateContinueButton();
   });
 }
 
-function addNameRow(list, removable) {
+function addNameRow(list) {
   const row = document.createElement('div');
   row.className = 'name-row';
   row.innerHTML = `
     <input type="text" data-i18n-placeholder="name_placeholder" placeholder="${translations.name_placeholder || 'Nimi'}">
-    ${removable ? '<button type="button" class="remove-name-btn">✕</button>' : ''}
+    <button type="button" class="remove-name-btn">✕</button>
   `;
   list.appendChild(row);
-}
-
-function updateRemoveButtons(list, firstRemovable) {
-  const rows = list.querySelectorAll('.name-row');
-  rows.forEach((row, index) => {
-    const btn = row.querySelector('.remove-name-btn');
-    if (!btn) return;
-
-    const input = row.querySelector('input[type="text"]');
-    const isLast = index === rows.length - 1;
-    const isEmpty = input.value.trim() === '';
-
-    if (!firstRemovable && index === 0) {
-      // First row in attending list — never show remove
-      btn.style.display = 'none';
-    } else if (isLast && isEmpty) {
-      // Last empty row — hide remove
-      btn.style.display = 'none';
-    } else {
-      btn.style.display = '';
-    }
-  });
+  return row;
 }
 
 function getNames(listId) {
@@ -107,8 +79,8 @@ function updateContinueButton() {
     attending.length === 0 && notAttending.length === 0;
 }
 
-setupNameList('attending-list', false);
-setupNameList('not-attending-list', true);
+setupNameList('attending-list', 'add-attending-btn');
+setupNameList('not-attending-list', 'add-not-attending-btn');
 
 // --- Phase Navigation ---
 
@@ -271,13 +243,18 @@ function savePhase2State() {
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHcskig-ev24MU7OyRaCk23EhnTpb3PIDdGiSiM6_DCz5gsnCbG3-orcR3wnJPiJBz/exec';
 
 async function submitData(attendingNames, notAttendingNames) {
-  const submitBtn = document.getElementById('submit-btn');
-  const errorMsg = document.getElementById('error-message');
-  if (submitBtn) {
-    submitBtn.disabled = true;
-    submitBtn.textContent = translations.submitting || 'Lähetetään...';
-  }
-  if (errorMsg) errorMsg.style.display = 'none';
+  // Direct Phase 1 submission (only not-attending names) uses the Continue
+  // button and its own error element, since Phase 2 is never shown
+  const isDirect = attendingNames.length === 0;
+  const btn = document.getElementById(isDirect ? 'continue-btn' : 'submit-btn');
+  const idleText = isDirect
+    ? (translations.continue || 'Jatka')
+    : (translations.submit || 'Lähetä');
+  const errorMsg = document.getElementById(isDirect ? 'error-message-phase1' : 'error-message');
+
+  btn.disabled = true;
+  btn.textContent = translations.submitting || 'Lähetetään...';
+  errorMsg.style.display = 'none';
 
   const submissionGroup = crypto.randomUUID();
 
@@ -319,11 +296,13 @@ async function submitData(attendingNames, notAttendingNames) {
     const formData = new URLSearchParams();
     formData.append('data', JSON.stringify({ guests }));
 
-    await fetch(APPS_SCRIPT_URL, {
+    const response = await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
-      mode: 'no-cors',
       body: formData
     });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const result = await response.json();
+    if (result.status !== 'ok') throw new Error(`Unexpected response: ${JSON.stringify(result)}`);
 
     // Show confirmation
     document.getElementById('phase-1').style.display = 'none';
@@ -335,11 +314,9 @@ async function submitData(attendingNames, notAttendingNames) {
     thankYou.style.animation = '';
   } catch (error) {
     console.error('Submission failed:', error);
-    if (errorMsg) errorMsg.style.display = '';
-    if (submitBtn) {
-      submitBtn.disabled = false;
-      submitBtn.textContent = translations.submit || 'Lähetä';
-    }
+    errorMsg.style.display = '';
+    btn.disabled = false;
+    btn.textContent = idleText;
   }
 }
 

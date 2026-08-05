@@ -4,6 +4,7 @@
   "attending_heading": "Osallistuvat",
   "not_attending_heading": "Eivät osallistu",
   "name_placeholder": "Nimi",
+  "add_guest": "+ Lisää vieras",
   "continue": "Jatka",
   "back": "← Takaisin",
   "phase2_intro": "Vastaa jokaisen vieraan kohdalla huolellisesti kysymyksiin.",
@@ -21,5 +22,5 @@
   "submit": "Lähetä",
   "submitting": "Lähetetään...",
   "thank_you": "Kiitos vastauksestasi!",
-  "error": "Jokin meni pieleen. Yritä uudelleen."
+  "error": "Lähetys epäonnistui. Yritä uudelleen — jos ongelma jatkuu, kokeile hetken kuluttua uudestaan."
 }

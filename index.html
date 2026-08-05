@@ -29,19 +29,18 @@
             <input type="text" data-i18n-placeholder="name_placeholder" placeholder="Nimi">
           </div>
         </div>
+        <button type="button" id="add-attending-btn" class="add-guest-btn" data-i18n="add_guest">+ Lisää vieras</button>
       </section>
 
       <section class="name-section">
         <h2 data-i18n="not_attending_heading">Eivät osallistu</h2>
-        <div id="not-attending-list" class="name-list">
-          <div class="name-row">
-            <input type="text" data-i18n-placeholder="name_placeholder" placeholder="Nimi">
-            <button type="button" class="remove-name-btn" style="display: none;">✕</button>
-          </div>
-        </div>
+        <div id="not-attending-list" class="name-list"></div>
+        <button type="button" id="add-not-attending-btn" class="add-guest-btn" data-i18n="add_guest">+ Lisää vieras</button>
       </section>
 
       <button type="button" id="continue-btn" data-i18n="continue" disabled>Jatka</button>
+
+      <p id="error-message-phase1" class="error-message" data-i18n="error" style="display: none;">Lähetys epäonnistui. Yritä uudelleen — jos ongelma jatkuu, kokeile hetken kuluttua uudestaan.</p>
     </div>
 
     <!-- Phase 2: Details -->
@@ -53,7 +52,7 @@
       <form id="rsvp-form">
         <div id="person-details"></div>
 
-        <p id="error-message" data-i18n="error" style="display: none;">Jokin meni pieleen. Yritä uudelleen.</p>
+        <p id="error-message" class="error-message" data-i18n="error" style="display: none;">Lähetys epäonnistui. Yritä uudelleen — jos ongelma jatkuu, kokeile hetken kuluttua uudestaan.</p>
 
         <button type="submit" id="submit-btn" data-i18n="submit">Lähetä</button>
       </form>

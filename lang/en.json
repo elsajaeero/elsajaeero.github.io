@@ -4,6 +4,7 @@
   "attending_heading": "Attending",
   "not_attending_heading": "Not attending",
   "name_placeholder": "Name",
+  "add_guest": "+ Add guest",
   "continue": "Continue",
   "back": "← Back",
   "phase2_intro": "Please answer the questions carefully for each guest.",
@@ -21,5 +22,5 @@
   "submit": "Submit",
   "submitting": "Submitting...",
   "thank_you": "Thank you for your response!",
-  "error": "Something went wrong. Please try again."
+  "error": "Sending failed. Please try again — if the problem persists, try again in a few minutes."
 }

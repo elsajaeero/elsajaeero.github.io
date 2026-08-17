@@ -17,7 +17,6 @@ function doPost(e) {
         guest.bus,
         guest.dietary_restrictions,
         guest.speech,
-        guest.baby_chair,
         now,
         guest.submission_group
       ];

@@ -176,11 +176,6 @@ function buildPersonDetails(names) {
       </div>
 
       <label class="checkbox-label">
-        <input type="checkbox" class="baby-chair-checkbox" ${saved.babyChair ? 'checked' : ''}>
-        <strong data-i18n="baby_chair">${translations.baby_chair || 'Tarvitsee syöttötuolin'}</strong>
-      </label>
-
-      <label class="checkbox-label">
         <input type="checkbox" class="speech-checkbox" ${saved.speech ? 'checked' : ''}>
         <strong data-i18n="speech">${translations.speech || 'Haluaisin pitää puheen'}</strong>
       </label>
@@ -232,8 +227,7 @@ function savePhase2State() {
       bus: busRadio ? busRadio.value : null,
       hasDietary: section.querySelector('.dietary-checkbox').checked,
       dietaryText: section.querySelector('.dietary-input')?.value || '',
-      speech: section.querySelector('.speech-checkbox').checked,
-      babyChair: section.querySelector('.baby-chair-checkbox').checked
+      speech: section.querySelector('.speech-checkbox').checked
     };
   });
 }
@@ -267,14 +261,12 @@ async function submitData(attendingNames, notAttendingNames) {
     const dietaryCheckbox = section?.querySelector('.dietary-checkbox');
     const dietaryInput = section?.querySelector('.dietary-input');
     const speechCheckbox = section?.querySelector('.speech-checkbox');
-    const babyChairCheckbox = section?.querySelector('.baby-chair-checkbox');
     guests.push({
       name,
       attending: 'Yes',
       bus: busRadio ? busRadio.value : 'none',
       dietary_restrictions: dietaryCheckbox?.checked ? (dietaryInput?.value.trim() || '') : '',
       speech: speechCheckbox?.checked ? 'Yes' : 'No',
-      baby_chair: babyChairCheckbox?.checked ? 'Yes' : 'No',
       submission_group: submissionGroup
     });
   });
@@ -287,7 +279,6 @@ async function submitData(attendingNames, notAttendingNames) {
       bus: '',
       dietary_restrictions: '',
       speech: '',
-      baby_chair: '',
       submission_group: submissionGroup
     });
   });
